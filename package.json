@@ -1,0 +1,12 @@
+{
+  "name": "aws-terraform-infra-blueprint",
+  "version": "1.0.0",
+  "description": "Production-shaped AWS IaC with multi-env (dev/stage/prod): VPC, EKS, RDS (Postgres), S3, IAM, remote state, and CI (plan/apply).",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
