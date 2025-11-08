@@ -1,33 +1,15 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "config:recommended",
-    ":preserveSemverRanges",
-    ":semanticCommits"
-  ],
+  "extends": ["config:recommended", ":preserveSemverRanges", ":semanticCommits"],
   "labels": ["dependencies"],
   "dependencyDashboard": true,
   "timezone": "Africa/Tunis",
-  "schedule": ["after 09:00 before 18:00 every weekday"],
+  "schedule": ["every weekday"],
   "packageRules": [
-    {
-      "matchManagers": ["terraform"],
-      "groupName": "terraform providers",
-      "schedule": ["weekly"]
-    },
-    {
-      "matchManagers": ["npm"],
-      "groupName": "node tooling",
-      "automerge": false
-    }
+    { "matchManagers": ["terraform"], "groupName": "terraform providers", "schedule": ["every weekday"] },
+    { "matchManagers": ["npm"], "groupName": "node tooling", "automerge": false }
   ],
-  "vulnerabilityAlerts": {
-    "enabled": true
-  },
-  "npm": {
-    "enabled": true
-  },
-  "terraform": {
-    "enabled": true
-  }
+  "vulnerabilityAlerts": { "enabled": true },
+  "npm": { "enabled": true },
+  "terraform": { "enabled": true }
 }
