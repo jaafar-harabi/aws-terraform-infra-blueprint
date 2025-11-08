@@ -1,0 +1,32 @@
+name: auto-pr (practice)
+on:
+  schedule:
+    - cron: "15 9 * * 1-5" 
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  practice-pr:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Update practice tick
+        run: |
+          mkdir -p .meta
+          date -u +"%Y-%m-%dT%H:%M:%SZ" > .meta/last-practice-tick.txt
+
+      - name: Create PR
+        uses: peter-evans/create-pull-request@v6
+        with:
+          commit-message: "chore(meta): update practice tick"
+          title: "chore(meta): update practice tick"
+          body: |
+            Automated practice PR to support code-review activity.
+            You can review this PR (approve/comment) to grow the "Code review" metric.
+          branch: "bot/practice-tick"
+          delete-branch: true
+          labels: "practice"
