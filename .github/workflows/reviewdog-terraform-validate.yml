@@ -1,0 +1,22 @@
+name: reviewdog - terraform validate & fmt
+on:
+  pull_request:
+    paths:
+      - '**/*.tf'
+      - '.github/workflows/reviewdog-terraform-validate.yml'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v3
+
+      - name: Terraform fmt (check)
+        run: terraform fmt -check -recursive
+      - name: Terraform validate (backend off)
+        run: |
+          find . -name ".terraform" -type d -prune -o -name "*.tf" -print >/dev/null
+          for d in $(find . -type f -name "*.tf" -exec dirname {} \; | sort -u); do
+            (cd "$d" && terraform init -backend=false -input=false >/dev/null 2>&1 && terraform validate || true)
+          done

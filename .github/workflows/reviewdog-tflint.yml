@@ -1,0 +1,32 @@
+name: reviewdog - tflint
+on:
+  pull_request:
+    paths:
+      - '**/*.tf'
+      - '.tflint.hcl'
+      - '.github/workflows/reviewdog-tflint.yml'
+
+jobs:
+  tflint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up tflint
+        uses: terraform-linters/setup-tflint@v4
+        with:
+          tflint_version: latest
+
+      - name: Init tflint plugins
+        run: tflint --init
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Run tflint with reviewdog
+        uses: reviewdog/action-tflint@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          reporter: github-pr-review        
+          fail_on_error: false             
+          filter_mode: diff_context        
+          tflint_flags: "--config=./.github/linters/.tflint.hcl"
