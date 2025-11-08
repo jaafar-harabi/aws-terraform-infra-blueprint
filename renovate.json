@@ -5,29 +5,34 @@
     ":preserveSemverRanges",
     ":semanticCommits"
   ],
-  "labels": ["dependencies"],
+  "labels": [
+    "dependencies"
+  ],
   "dependencyDashboard": true,
   "timezone": "Africa/Tunis",
-  "schedule": ["after 09:00 before 18:00 every weekday"],
+  "schedule": [
+    "every weekday"
+  ],
+  "enabledManagers": [
+    "npm",
+    "terraform"
+  ],
   "packageRules": [
     {
-      "matchManagers": ["terraform"],
+      "matchManagers": [
+        "terraform"
+      ],
       "groupName": "terraform providers",
-      "schedule": ["weekly"]
+      "schedule": [
+        "every weekday"
+      ]
     },
     {
-      "matchManagers": ["npm"],
+      "matchManagers": [
+        "npm"
+      ],
       "groupName": "node tooling",
       "automerge": false
     }
-  ],
-  "vulnerabilityAlerts": {
-    "enabled": true
-  },
-  "npm": {
-    "enabled": true
-  },
-  "terraform": {
-    "enabled": true
-  }
+  ]
 }
