@@ -1,0 +1,17 @@
+name: terraform-lint
+on:
+  pull_request:
+    paths:
+      - '**.tf'
+      - '.github/**'
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v3
+      - name: Terraform fmt
+        run: terraform fmt -check -recursive
+      - name: Terraform validate (dev)
+        working-directory: envs/dev
+        run: terraform init -backend=false && terraform validate
